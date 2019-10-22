@@ -24,7 +24,7 @@ module.exports.loop = function () {
 
 
             spw.spawnCreep([WORK, CARRY, MOVE], 'Worker ' + Date.now(), {
-                memory: { role: roles[Math.floor((Math.random() * 2))] }
+                memory: { role: roles[Math.floor((Math.random() * 3))] }
             });
 
 

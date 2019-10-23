@@ -3,15 +3,18 @@ var roleBuilder = {
     /** @param {Creep} creep **/
     run: function (creep) {
 
+        // if creep is trying to complete a constructionSite but has no energy left
         if (creep.memory.building && creep.carry.energy == 0) {
             creep.memory.building = false;
             creep.say('🔄 harvest');
         }
+        // if creep is harvesting energy but is full
         if (!creep.memory.building && creep.carry.energy == creep.carryCapacity) {
             creep.memory.building = true;
             creep.say('🚧 build');
         }
-
+        
+        // if creep is supposed to complete a constructionSite
         if (creep.memory.building) {
             var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
             if (targets.length) {
@@ -20,6 +23,7 @@ var roleBuilder = {
                 }
             }
         }
+        // if creep is supposed to harvest energy from source
         else {
             var sources = creep.room.find(FIND_SOURCES);
             if (creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {

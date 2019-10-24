@@ -15,7 +15,7 @@ var roleRepailer = {
         // if creep is trying to repair something but has no energy left
         if (creep.memory.repairing == true && creep.carry.energy == 0) {
             // switch state
-            creep.memory.working = false;
+            creep.memory.repairing = false;
         }
         // if creep is harvesting energy but is full
         else if (!creep.memory.repairing && creep.carry.energy == creep.carryCapacity) {
@@ -47,7 +47,8 @@ var roleRepailer = {
             // if we can't fine one
             else {
                 // look for construction sites
-               roleBuilder.run(creep);
+                creep.memory.building=false;//maybe this can fix the bug
+                roleBuilder.run(creep);
             }
         }
         // if creep is supposed to harvest energy from source

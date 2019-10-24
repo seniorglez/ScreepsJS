@@ -4,8 +4,8 @@ var roleBuilder = require('role.builder');
 var roleRepailer = require('role.repailer');
 var utilities = require('utilities');
 
-var numcreeps = 8;
-let roles = ["builder", "harvester", "upgrader","repailer"];
+var numcreeps = 12;
+let roles = ["builder", "harvester", "upgrader", "repailer"];
 
 
 
@@ -15,7 +15,6 @@ module.exports.loop = function () {
     utilities.deleteDeadCreeps();//esto limpia mierda, se supone
 
     //mirar como funcionan los pinga hash map
-  
 
     if (numcreeps >= Object.keys(Game.creeps).length) {
 
@@ -26,7 +25,8 @@ module.exports.loop = function () {
 
             spw.spawnCreep([WORK, CARRY, MOVE], 'Worker ' + Date.now(), {
                 memory: {
-                    role: roles[Math.floor((Math.random() * roles.length))]
+                    role: roles[Math.floor((Math.random() * roles.length))],
+                    homeroom: spw.room.name//funcion para sacar el nombre de la sala aqui
                 }
             });
 
@@ -59,18 +59,24 @@ module.exports.loop = function () {
 
     for (var name in Game.creeps) {//toma el array de creeps (for loop)
         var creep = Game.creeps[name];
-        if (creep.memory.role == 'harvester') {
-            roleHarvester.run(creep);
+        if (creep.room.name == creep.memory.homeroom) {
+            if (creep.memory.role == 'harvester') {
+                roleHarvester.run(creep);
+            }
+            if (creep.memory.role == 'upgrader') {
+                roleUpgrader.run(creep);
+            }
+            if (creep.memory.role == 'builder') {
+                roleBuilder.run(creep);
+            }
+            if (creep.memory.role == 'repailer') {
+                roleRepailer.run(creep);//a veces se bloquean, repasar el código
+            }
+        }else{
+            utilities.goToHomeRoom(creep); //no se como hacer esta pinche mierda culiada
         }
-        if (creep.memory.role == 'upgrader') {
-            roleUpgrader.run(creep);
-        }
-        if (creep.memory.role == 'builder') {
-            roleBuilder.run(creep);
-        }
-        if (creep.memory.role == 'repailer') {
-           roleRepailer.run(creep);//que pinga?
-        }
+
+        
     }
 
 

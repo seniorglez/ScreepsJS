@@ -47,7 +47,7 @@ var roleRepailer = {
             // if we can't fine one
             else {
                 // look for construction sites
-                creep.memory.building=false;//maybe this can fix the bug
+                creep.say('Turning into a builder');
                 roleBuilder.run(creep);
             }
         }

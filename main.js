@@ -2,9 +2,10 @@ var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var roleRepailer = require('role.repailer');
+var roleClaimer = require('role.claimer');
 var utilities = require('utilities');
 
-var numcreeps = 12;
+var numcreeps = 20;
 let roles = ["builder", "harvester", "upgrader", "repailer"];
 
 
@@ -12,32 +13,11 @@ let roles = ["builder", "harvester", "upgrader", "repailer"];
 
 module.exports.loop = function () {
 
-    utilities.deleteDeadCreeps();//esto limpia mierda, se supone
+    utilities.deleteDeadCreeps();//this deletes the dead creeps that remains in the memory
 
-    //mirar como funcionan los pinga hash map
-
-    if (numcreeps >= Object.keys(Game.creeps).length) {
-
-        for (var s in Game.spawns) {//genera a un mierda en todos los spawns
-            var spw = Game.spawns[s];
-
-
-
-            spw.spawnCreep([WORK, CARRY, MOVE], 'Worker ' + Date.now(), {
-                memory: {
-                    role: roles[Math.floor((Math.random() * roles.length))],
-                    homeroom: spw.room.name//funcion para sacar el nombre de la sala aqui
-                }
-            });
-
-
-
-        }
-
-        //var creep = Game.creeps[name];
-
-
-
+    if (numcreeps >= Object.keys(Game.creeps).length) {//this generates a creep in every spawn
+        utilities.generateCreep(roles[Math.floor((Math.random() * roles.length))]);
+        
     }
 
 
@@ -57,30 +37,36 @@ module.exports.loop = function () {
     }
 
 
-    for (var name in Game.creeps) {//toma el array de creeps (for loop)
+    for (var name in Game.creeps) {
         var creep = Game.creeps[name];
-        if (creep.room.name == creep.memory.homeroom) {
-            if (creep.memory.role == 'harvester') {
+
+        if (creep.memory.role == 'harvester') {
+            if (utilities.goToHomeRoom(creep)) {
                 roleHarvester.run(creep);
             }
-            if (creep.memory.role == 'upgrader') {
+
+        }
+        if (creep.memory.role == 'upgrader') {
+            if (utilities.goToHomeRoom(creep)) {
                 roleUpgrader.run(creep);
             }
-            if (creep.memory.role == 'builder') {
+
+        }
+        if (creep.memory.role == 'builder') {
+            if (utilities.goToHomeRoom(creep)) {
                 roleBuilder.run(creep);
             }
-            if (creep.memory.role == 'repailer') {
-                roleRepailer.run(creep);//a veces se bloquean, repasar el código
+        }
+        if (creep.memory.role == 'repailer') {
+            if (utilities.goToHomeRoom(creep)) {
+                roleRepailer.run(creep);
             }
-        }else{
-            utilities.goToHomeRoom(creep); //no se como hacer esta pinche mierda culiada
+        }
+        if (creep.memory.role == 'claimer') {
+            roleClaimer.run(creep);
         }
 
-        
+
     }
 
-
-
-    //para spawnear los screeps  Game.spawns.Spawn.createCreep([WORK,CARRY,MOVE,MOVE]);
-    //para cambiarles el roll Game.creeps.Violet.memory.role = 'harvester';
 }

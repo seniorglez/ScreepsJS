@@ -47,7 +47,7 @@ var roleRepailer = {
             // if we can't fine one
             else {
                 // look for construction sites
-                creep.say('Turning into a builder');
+                creep.say('now builder');
                 roleBuilder.run(creep);
             }
         }

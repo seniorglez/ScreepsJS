@@ -15,7 +15,7 @@ var roleBuilder = {
             creep.memory.building = true;
             creep.say('🚧 build');
         }
-        
+
         // if creep is supposed to complete a constructionSite
         if (creep.memory.building) {
             var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
@@ -23,7 +23,7 @@ var roleBuilder = {
                 if (creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
                     creep.moveTo(targets[0], { visualizePathStyle: { stroke: '#ffffff' } });
                 }
-            }else{
+            } else {
                 //turn into a harvester here
                 creep.say('now Harvester');
                 roleHarvester.run(creep);

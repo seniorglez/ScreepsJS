@@ -1,7 +1,7 @@
 var roleUpgrader = {
 
     /** @param {Creep} creep **/
-    run: function(creep) {
+    run: function (creep) {
         // if creep is bringing energy to the controller but has no energy left
         if (creep.memory.upgrading && creep.carry.energy == 0) {
             creep.memory.upgrading = false;
@@ -12,7 +12,7 @@ var roleUpgrader = {
             creep.memory.upgrading = true;
             creep.say('⚡ upgrade');
         }
-         // if creep is supposed to transfer energy to the controller
+        // if creep is supposed to transfer energy to the controller
         if (creep.memory.upgrading) {
             if (creep.upgradeController(creep.room.controller) == ERR_NOT_IN_RANGE) {
                 creep.moveTo(creep.room.controller, { visualizePathStyle: { stroke: '#ffffff' } });

@@ -8,26 +8,26 @@ var config = require('config');
 
 let roles = ["builder", "harvester", "upgrader", "repailer"];
 
-function operateTower( targetRoom ) {
-      var towers = targetRoom.find(FIND_STRUCTURES, {
-            filter: (s) => s.structureType == STRUCTURE_TOWER
-        })
-        
-        for (let tower of towers) {
-            if (tower) {
-                var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
-                    filter: (structure) => structure.hits < structure.hitsMax
-                });
-                if (closestDamagedStructure) {
-                    tower.repair(closestDamagedStructure);
-                }
+function operateTower(targetRoom) {
+    var towers = targetRoom.find(FIND_STRUCTURES, {
+        filter: (s) => s.structureType == STRUCTURE_TOWER
+    })
 
-                var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);//pillo a los mierdas
-                if (closestHostile) {
-                    tower.attack(closestHostile);
-                }
+    for (let tower of towers) {
+        if (tower) {
+            var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
+                filter: (structure) => structure.hits < structure.hitsMax
+            });
+            if (closestDamagedStructure) {
+                tower.repair(closestDamagedStructure);
+            }
+
+            var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);//pillo a los mierdas
+            if (closestHostile) {
+                tower.attack(closestHostile);
             }
         }
+    }
 }
 
 module.exports.loop = function () {
@@ -51,10 +51,6 @@ module.exports.loop = function () {
     if (config.population.minNumberOfRepailers > numberOfRepailers) {
         utilities.generateCreep(roles[3]);
     }
-    // if (numcreeps >= Object.keys(Game.creeps).length) {//this generates a creep in every spawn
-    //        utilities.generateCreep(roles[Math.floor((Math.random() * roles.length))]);
-
-    //  }
 
     for (var name in Game.rooms) {
         var currentRoom = Game.rooms[name];

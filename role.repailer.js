@@ -63,4 +63,4 @@ var roleRepailer = {
         }
     }
 };
-module.exports = roleRepailer;//no vale entre corchetes por lo que sea
+module.exports = roleRepailer;

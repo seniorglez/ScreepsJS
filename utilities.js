@@ -23,22 +23,19 @@ function goToHomeRoom(c) {
         if (waypointFlag.length > 0) {
             //Waypoint flag found!
             gotoFlag(waypointFlag[0], c);
-        }
-        else {
+        } else {
             let controller = Game.rooms[c.memory.homeroom].controller;
             c.moveTo(controller, { reusePath: moveReusePath() });
         }
         return false;
-    }
-    else { return true; }
+    }  else { return true; }
 };
 
 function gotoFlag(flag, c) {
     if (flag.memory.waypoints == undefined) {
         // No waypoints set -> proceed directly to flag
         c.moveTo(flag);//, {reusePath: moveReusePath()}
-    }
-    else {
+    } else {
         // Target flag has waypoints set
         if (c.memory.waypointFlag != flag.name) {
             // New flag target -> reset counter;
@@ -50,12 +47,10 @@ function gotoFlag(flag, c) {
             // Last waypoint reached -> go to final destination
             if (c.pos.getRangeTo(flag) > 2) {
                 c.moveTo(flag, { reusePath: moveReusePath() });
-            }
-            else {
+            } else {
                 c.memory.sleep = 3;
             }
-        }
-        else {
+        } else {
             //Go to waypoint
             let waypointFlag = Game.flags[flag.memory.waypoints[c.memory.waypointCounter]];
 
@@ -63,21 +58,18 @@ function gotoFlag(flag, c) {
                 //Waypoint flag does not exist
                 console.log("Flag " + flag.name + " in room " + flag.pos.roomName + " has an invalid way-point #" + c.memory.waypointCounter);
                 return false;
-            }
-            else {
+            } else {
                 //Waypoint is valid
                 if (c.room.name == waypointFlag.pos.roomName) {
                     // Creep is in waypoint room
                     if (c.pos.getRangeTo(waypointFlag) < 2) {
                         // Waypoint reached
                         c.memory.waypointCounter++;
-                    }
-                    else {
+                    } else {
                         //c.moveTo(waypointFlag, {reusePath: moveReusePath()});
                         c.moveTo(waypointFlag);
                     }
-                }
-                else {
+                } else {
                     // Creep not in waypoint room
                     //c.moveTo(waypointFlag, {reusePath: moveReusePath()});
                     c.moveTo(waypointFlag);
@@ -86,11 +78,10 @@ function gotoFlag(flag, c) {
         }
     }
 };
+
 function generateCreep(rol) {
     for (var s in Game.spawns) {//genera a un mierda en todos los spawns
         var spw = Game.spawns[s];
-
-
 
         spw.spawnCreep([WORK, CARRY, MOVE], 'Worker ' + Date.now(), {
             memory: {
@@ -98,11 +89,9 @@ function generateCreep(rol) {
                 homeroom: spw.room.name//funcion para sacar el nombre de la sala aqui
             }
         });
-
-
-
     }
 }
+
 module.exports = {
     deleteDeadCreeps,
     goToHomeRoom,

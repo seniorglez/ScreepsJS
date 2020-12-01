@@ -30,16 +30,14 @@ function operateTower(targetRoom) {
     }
 }
 
-module.exports.loop = function () {
-    //control de creeps number
-    var numberOfBuilders = _.sum(Game.creeps, (c) => c.memory.role == 'builder');
-    var numberOfHarvesters = _.sum(Game.creeps, (c) => c.memory.role == 'harvester');
-    var numberOfUpgraders = _.sum(Game.creeps, (c) => c.memory.role == 'upgrader');
-    var numberOfRepailers = _.sum(Game.creeps, (c) => c.memory.role == 'repailer');
-
-    utilities.deleteDeadCreeps();//this deletes the dead creeps that remains in the memory
-
-    if (config.population.minNumberOfBuilders > numberOfBuilders) {
+function controlCreepPopulation(targetRoom) {
+    
+    var numberOfBuilders =  _.sum( targetRoom.find(FIND_MY_CREEPS), (c) => c.memory.role == 'builder');
+    var numberOfHarvesters = _.sum( targetRoom.find(FIND_MY_CREEPS), (c) => c.memory.role == 'harvester');
+    var numberOfUpgraders = _.sum(targetRoom.find(FIND_MY_CREEPS), (c) => c.memory.role == 'upgrader');
+    var numberOfRepailers = _.sum(targetRoom.find(FIND_MY_CREEPS), (c) => c.memory.role == 'repailer');
+    
+     if (config.population.minNumberOfBuilders > numberOfBuilders) {
         utilities.generateCreep(roles[0]);
     }
     if (config.population.minNumberOfHarvesters > numberOfHarvesters) {
@@ -51,10 +49,18 @@ module.exports.loop = function () {
     if (config.population.minNumberOfRepailers > numberOfRepailers) {
         utilities.generateCreep(roles[3]);
     }
+}
+
+
+module.exports.loop = function () {
+
+    utilities.deleteDeadCreeps();
+
 
     for (var name in Game.rooms) {
         var currentRoom = Game.rooms[name];
         operateTower(currentRoom);
+        controlCreepPopulation(currentRoom);
     }
 
     for (var name in Game.creeps) {

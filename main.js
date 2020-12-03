@@ -22,7 +22,7 @@ function operateTower(targetRoom) {
                 tower.repair(closestDamagedStructure);
             }
 
-            var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);//pillo a los mierdas
+            var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
             if (closestHostile) {
                 tower.attack(closestHostile);
             }
@@ -51,48 +51,33 @@ function controlCreepPopulation(targetRoom) {
     }
 }
 
+function operateCreeps() {
+    for (var name in Game.creeps) {
+        var creep = Game.creeps[name];
+        
+        switch(creep.memory.role) {
+            case 'harvester':
+                roleHarvester.run(creep);
+            case 'upgrader':
+                roleUpgrader.run(creep);
+            case 'builder':
+                roleBuilder.run(creep);
+            case 'repailer':
+                roleRepailer.run(creep);
+            case 'claimer':
+                roleClaimer.run(creep);
+        }
+    }
+}
 
 module.exports.loop = function () {
-
+    
     utilities.deleteDeadCreeps();
-
-
+    operateCreeps();
+    
     for (var name in Game.rooms) {
         var currentRoom = Game.rooms[name];
         operateTower(currentRoom);
         controlCreepPopulation(currentRoom);
     }
-
-    for (var name in Game.creeps) {
-        var creep = Game.creeps[name];
-
-        if (creep.memory.role == 'harvester') {
-            if (utilities.goToHomeRoom(creep)) {
-                roleHarvester.run(creep);
-            }
-
-        }
-        if (creep.memory.role == 'upgrader') {
-            if (utilities.goToHomeRoom(creep)) {
-                roleUpgrader.run(creep);
-            }
-
-        }
-        if (creep.memory.role == 'builder') {
-            if (utilities.goToHomeRoom(creep)) {
-                roleBuilder.run(creep);
-            }
-        }
-        if (creep.memory.role == 'repailer') {
-            if (utilities.goToHomeRoom(creep)) {
-                roleRepailer.run(creep);
-            }
-        }
-        if (creep.memory.role == 'claimer') {
-            roleClaimer.run(creep);
-        }
-
-
-    }
-
 }

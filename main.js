@@ -37,18 +37,10 @@ function controlCreepPopulation(targetRoom) {
     var numberOfUpgraders = _.sum(targetRoom.find(FIND_MY_CREEPS), (c) => c.memory.role == 'upgrader');
     var numberOfRepailers = _.sum(targetRoom.find(FIND_MY_CREEPS), (c) => c.memory.role == 'repailer');
     
-     if (config.population.minNumberOfBuilders > numberOfBuilders) {
-        utilities.generateCreep(roles[0]);
-    }
-    if (config.population.minNumberOfHarvesters > numberOfHarvesters) {
-        utilities.generateCreep(roles[1]);
-    }
-    if (config.population.minNumberOfUpgraders > numberOfUpgraders) {
-        utilities.generateCreep(roles[2]);
-    }
-    if (config.population.minNumberOfRepailers > numberOfRepailers) {
-        utilities.generateCreep(roles[3]);
-    }
+    if (config.population.minNumberOfBuilders > numberOfBuilders) utilities.generateCreep(roles[0]);
+    if (config.population.minNumberOfHarvesters > numberOfHarvesters) utilities.generateCreep(roles[1]);
+    if (config.population.minNumberOfUpgraders > numberOfUpgraders) utilities.generateCreep(roles[2]);
+    if (config.population.minNumberOfRepailers > numberOfRepailers) utilities.generateCreep(roles[3]);
 }
 
 function operateCreeps() {

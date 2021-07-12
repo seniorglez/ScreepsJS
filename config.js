@@ -11,7 +11,8 @@ var population = {
    minNumberOfBuilders: 2,
    minNumberOfHarvesters: 2,
    minNumberOfUpgraders: 2,
-   minNumberOfRepailers: 2,
+   minNumberOfRepailers: 1,
+   minNumberOfFighters: 1,
 };
 
 var lul = []

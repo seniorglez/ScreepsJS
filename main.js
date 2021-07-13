@@ -75,14 +75,21 @@ function operateCreeps() {
         switch (creep.memory.role) {
             case 'harvester':
                 roleHarvester.run(creep);
+                break;
             case 'upgrader':
                 roleUpgrader.run(creep);
+                break;
             case 'builder':
                 roleBuilder.run(creep);
+                break;
             case 'repailer':
                 roleRepailer.run(creep);
+                break;
             case 'claimer':
                 roleClaimer.run(creep);
+                break;
+            case 'fighter':
+                roleFighter.run(creep);
         }
     }
 }

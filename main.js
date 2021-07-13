@@ -6,6 +6,7 @@ var roleClaimer = require('role.claimer');
 var roleFighter = require('role.fighter');
 var utilities = require('utilities');
 var config = require('config');
+var birthingPod = require('birthingPod');
 
 let roles = ["builder", "harvester", "upgrader", "repailer", "fighter"];
 
@@ -42,11 +43,12 @@ function controlCreepPopulation(targetRoom) {
     var numberOfRepailers = _.sum(targetRoom.find(FIND_MY_CREEPS), (c) => c.memory.role == 'repailer');
     var numberOfFighters = _.sum(targetRoom.find(FIND_MY_CREEPS), (c) => c.memory.role == 'fighter');
 
-    if (config.population.minNumberOfBuilders > numberOfBuilders && numberOfConstructionSites > 0) utilities.generateCreep(roles[0]);
-    if (config.population.minNumberOfHarvesters > numberOfHarvesters) utilities.generateCreep(roles[1]);
-    if (config.population.minNumberOfUpgraders > numberOfUpgraders) utilities.generateCreep(roles[2]);
-    if (config.population.minNumberOfRepailers > numberOfRepailers) utilities.generateCreep(roles[3]);
-    if (config.population.minNumberOfFighters > numberOfFighters) utilities.generateCreep(roles[4]);
+    if (config.population.minNumberOfBuilders > numberOfBuilders && numberOfConstructionSites > 0) birthingPod.run(targetRoom, roles[0]);
+    if (config.population.minNumberOfHarvesters > numberOfHarvesters) birthingPod.run(targetRoom, roles[1]);
+    if (config.population.minNumberOfUpgraders > numberOfUpgraders) birthingPod.run(targetRoom, roles[2]);
+    if (config.population.minNumberOfRepailers > numberOfRepailers) birthingPod.run(targetRoom, roles[3]);
+    if (config.population.minNumberOfFighters > numberOfFighters) birthingPod.run(targetRoom, roles[4]);
+    
 }
 
 function getNumberOfConstructionSites(targetRoom) {

@@ -20,7 +20,7 @@ function goToHomeRoom(c) {
             c.moveTo(controller, { reusePath: moveReusePath() });
         }
         return false;
-    }  else { return true; }
+    } else { return true; }
 };
 
 function gotoFlag(flag, c) {
@@ -71,22 +71,8 @@ function gotoFlag(flag, c) {
     }
 };
 
-function generateCreep(rol) {
-    for (var s in Game.spawns) {//genera a un mierda en todos los spawns
-        var spw = Game.spawns[s];
-
-        spw.spawnCreep([WORK, CARRY, MOVE], 'Worker ' + Date.now(), {
-            memory: {
-                role: rol,
-                homeroom: spw.room.name//funcion para sacar el nombre de la sala aqui
-            }
-        });
-    }
-}
-
 module.exports = {
     deleteDeadCreeps,
     goToHomeRoom,
-    gotoFlag,
-    generateCreep
+    gotoFlag
 };

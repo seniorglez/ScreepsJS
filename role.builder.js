@@ -1,8 +1,13 @@
 var roleHarvester = require('role.harvester');
 
+/** 
+ * This use case allows you make creeps work as builders.
+ **/
 var roleBuilder = {
 
-    /** @param {Creep} creep **/
+    /**
+     * Executes de use case.
+     *  @param {Creep} creep **/
     run: function (creep) {
 
         // if creep is trying to complete a constructionSite but has no energy left

@@ -1,6 +1,12 @@
+/** 
+ * This use case allows you make creeps work as upgraders.
+ **/
+
 var roleUpgrader = {
 
-    /** @param {Creep} creep **/
+    /**
+     * Executes de use case.
+     *  @param {Creep} creep **/
     run: function (creep) {
         // if creep is bringing energy to the controller but has no energy left
         if (creep.memory.upgrading && creep.carry.energy == 0) {

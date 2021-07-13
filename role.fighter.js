@@ -1,5 +1,12 @@
+/** 
+ * This use case allows you make creeps work as fighter (Mele).
+ **/
+
 var roleFighter = {
 
+    /**
+     * Executes de use case.
+     *  @param {Creep} creep **/
     run: function (creep) {
         const target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
         if (target) {

@@ -48,7 +48,7 @@ function controlCreepPopulation(targetRoom) {
     if (config.population.minNumberOfUpgraders > numberOfUpgraders) birthingPod.run(targetRoom, roles[2]);
     if (config.population.minNumberOfRepailers > numberOfRepailers) birthingPod.run(targetRoom, roles[3]);
     if (config.population.minNumberOfFighters > numberOfFighters) birthingPod.run(targetRoom, roles[4]);
-    
+
 }
 
 function getNumberOfConstructionSites(targetRoom) {
@@ -70,10 +70,10 @@ function isStateOfWar(targetRoom) {
     return (enemy_screeps.length > 0)
 }
 
-function operateCreeps() {
-    for (var name in Game.creeps) {
-        var creep = Game.creeps[name];
-        
+function operateCreeps(room) {
+    var creeps = room.find(FIND_MY_CREEPS)
+    for(var n in creeps) {
+        var creep = creeps[n];
         switch (creep.memory.role) {
             case 'harvester':
                 roleHarvester.run(creep);
@@ -97,14 +97,15 @@ function operateCreeps() {
 }
 
 module.exports.loop = function () {
-
+   
     utilities.deleteDeadCreeps();
-    operateCreeps();
 
     for (var name in Game.rooms) {
         var currentRoom = Game.rooms[name];
+        operateCreeps(currentRoom);
         operateTower(currentRoom);
         controlCreepPopulation(currentRoom);
         defenseProtocol(currentRoom);
     }
 }
+

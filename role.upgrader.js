@@ -2,13 +2,7 @@
  * This use case allows you make creeps work as upgraders.
  **/
 
-var roleUpgrader = {
-
-    /**
-     * Executes de use case.
-     *  @param {Creep} creep 
-     **/
-    run: function (creep) {
+var roleUpgrader = (creep) => {
         // if creep is bringing energy to the controller but has no energy left
         if (creep.memory.upgrading && creep.carry.energy == 0) {
             creep.memory.upgrading = false;
@@ -31,7 +25,6 @@ var roleUpgrader = {
                 creep.moveTo(sources[0], { visualizePathStyle: { stroke: '#ffaa00' } });// move towards the source
             }
         }
-    }
 };
 
 module.exports = roleUpgrader;

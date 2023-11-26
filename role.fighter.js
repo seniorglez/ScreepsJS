@@ -2,13 +2,7 @@
  * This use case allows you make creeps work as fighter (Mele).
  **/
 
-var roleFighter = {
-
-    /**
-     * Executes de use case.
-     *  @param {Creep} creep 
-     **/
-    run: function (creep) {
+const roleFighter = (creep) => {
         const target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
         if (target) {
             if (creep.attack(target) == ERR_NOT_IN_RANGE) {
@@ -25,6 +19,6 @@ var roleFighter = {
             }
         
         }
-    }
-}
+    };
+
 module.exports = roleFighter;

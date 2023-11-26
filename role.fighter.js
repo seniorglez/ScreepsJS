@@ -6,7 +6,8 @@ var roleFighter = {
 
     /**
      * Executes de use case.
-     *  @param {Creep} creep **/
+     *  @param {Creep} creep 
+     **/
     run: function (creep) {
         const target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
         if (target) {

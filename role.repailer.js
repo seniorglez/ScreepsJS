@@ -7,7 +7,8 @@ var roleRepailer = {
 
     /**
      * Executes de use case.
-     *  @param {Creep} creep **/
+     *  @param {Creep} creep
+     **/
     run: function (creep) {
         // if creep is trying to repair something but has no energy left
         if (creep.memory.repairing == true && creep.carry.energy == 0) {

@@ -7,7 +7,8 @@ var roleBuilder = {
 
     /**
      * Executes de use case.
-     *  @param {Creep} creep **/
+     *  @param {Creep} creep 
+     **/
     run: function (creep) {
 
         // if creep is trying to complete a constructionSite but has no energy left

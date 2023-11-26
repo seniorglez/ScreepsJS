@@ -6,7 +6,8 @@ var roleHarvester = {
 
     /**
      * Executes de use case.
-     *  @param {Creep} creep **/
+     *  @param {Creep} creep
+     **/
     run: function (creep) {
         if (creep.carry.energy < creep.carryCapacity) {
             var sources = creep.room.find(FIND_SOURCES);

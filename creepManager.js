@@ -8,7 +8,6 @@ var roleFighter = require('role.fighter');
 const execute = (room) => {
     const creeps = room.find(FIND_MY_CREEPS);
     creeps.forEach(element => {
-        console.log('Operating creep ' + element);
         switch (element.memory.role) {
             case 'harvester':
                 roleHarvester(element);
